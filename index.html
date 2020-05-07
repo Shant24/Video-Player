@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Player</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="src/img/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="video_container">
+      <video id="video" poster="" src="src/video/Evolution.mp4"></video>
+      <div class="player_container">
+        <div id="play_and_pause">
+          <div class="play active"></div>
+          <div class="pause">
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <div class="c_time_div">
+          <span id="current_time">00:00</span>
+        </div>
+        <div class="progress_container">
+          <div class="progress_borders">
+            <div class="progress"></div>
+            <div class="progress_hover"></div>
+          </div>
+        </div>
+        <div>
+          <span id="video_time"></span>
+        </div>
+        <div class="volume_status">
+          <div class="turned">
+            <img src="src/img/volume_turned.png" alt="" />
+          </div>
+          <div class="muted block">
+            <img src="src/img/volume_muted.png" alt="" />
+          </div>
+        </div>
+        <div class="volume_container">
+          <div class="volume_borders">
+            <div class="volume"></div>
+            <div id="volVal1"></div>
+            <div id="volVal2"></div>
+          </div>
+        </div>
+        <div id="full_screen">
+          <img class="full" src="src/img/full-screen.png" />
+        </div>
+      </div>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
+</html>
