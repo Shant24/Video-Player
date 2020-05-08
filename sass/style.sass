@@ -12,7 +12,6 @@ body
   height: 338px
   overflow: hidden
   box-shadow: 0 0 15px #000000
-  // border-radius: 10px
   &:hover .player_container
     bottom: 0px
     transition: all ease-in .4s
@@ -30,20 +29,17 @@ body
     color: white
     position: absolute
     left: 0
-    // bottom: -40px
-    bottom: 0px
+    bottom: -40px
     z-index: 2
     display: grid
     grid-template-columns: 50px 38px 3fr 40px 20px 1fr 40px
     grid-column-gap: 5px
     align-items: center
-    // background-color: #9c949457
     transition: all ease-in .4s
     #play_and_pause
       width: 40px
       height: 40px
       box-sizing: border-box
-      // border: 1px solid #fff
       display: flex
       justify-content: center
       align-items: center
@@ -116,13 +112,6 @@ body
         .full
           transform: scale(1.2)
           transition: transform ease-in .2s
-.volume_hover
-  // height: 100%
-  // background-color: #17b7f1
-  // position: absolute
-  // top: 0
-  // left: 0
-  // border-radius: 10px
 .volume_value_1, .progress_time_1
   width: 20px
   height: 20px
