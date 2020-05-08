@@ -45,36 +45,24 @@ video.addEventListener("timeupdate", () => {
   let currentTime_second = currentTime % 60;
 
   if (currentTime >= 3600) {
-    if (currentTime_hour <= 9) {
-      currentTime_hour = "0" + currentTime_hour;
-    }
-
     currentTime_minute = Math.floor((currentTime / 60) % 60);
 
     if (currentTime_hour > 12) {
       return;
     }
 
-    if (currentTime_minute <= 9) {
-      currentTime_minute = "0" + currentTime_minute;
-    }
-
-    if (currentTime_second <= 9) {
-      currentTime_second = "0" + currentTime_second;
-    }
-
     current_time.style.fontSize = "12px";
     current_time.innerHTML =
-      currentTime_hour + ":" + currentTime_minute + ":" + currentTime_second;
+      ("0" + currentTime_hour).slice(-2) +
+      ":" +
+      ("0" + currentTime_minute).slice(-2) +
+      ":" +
+      ("0" + currentTime_second).slice(-2);
   } else {
-    if (currentTime_minute <= 9) {
-      currentTime_minute = "0" + currentTime_minute;
-    }
-    if (currentTime_second <= 9) {
-      currentTime_second = "0" + currentTime_second;
-    }
-
-    current_time.innerHTML = currentTime_minute + ":" + currentTime_second;
+    current_time.innerHTML =
+      ("0" + currentTime_minute).slice(-2) +
+      ":" +
+      ("0" + currentTime_second).slice(-2);
   }
 });
 
@@ -85,37 +73,26 @@ window.addEventListener("load", () => {
   let duration_second = duration % 60;
 
   if (duration >= 3600) {
-    if (duration_hour <= 9) {
-      duration_hour = "0" + duration_hour;
-    }
-
     duration_minute = Math.floor((duration / 60) % 60);
 
     if (duration_hour > 12) {
       return;
     }
 
-    if (duration_minute <= 9) {
-      duration_minute = "0" + duration_minute;
-    }
-
-    if (duration_second <= 9) {
-      duration_second = "0" + duration_second;
-    }
+    // (0${number}).slice(-2)
 
     video_time.style.fontSize = "12px";
     video_time.innerHTML =
-      duration_hour + ":" + duration_minute + ":" + duration_second;
+      ("0" + duration_hour).slice(-2) +
+      ":" +
+      ("0" + duration_minute).slice(-2) +
+      ":" +
+      ("0" + duration_second).slice(-2);
   } else {
-    if (duration_minute <= 9) {
-      duration_minute = "0" + duration_minute;
-    }
-
-    if (duration_second <= 9) {
-      duration_second = "0" + duration_second;
-    }
-
-    video_time.innerHTML = duration_minute + ":" + duration_second;
+    video_time.innerHTML =
+      ("0" + duration_minute).slice(-2) +
+      ":" +
+      ("0" + duration_second).slice(-2);
   }
 });
 
@@ -148,6 +125,69 @@ function progressPosition() {
   video.pause();
   video.currentTime = video.duration * (o / w);
   video.play();
+
+  reset_hover_time();
+}
+
+// Progress bar hover
+const progVal1 = document.getElementById("progVal1");
+const progVal2 = document.getElementById("progVal2");
+
+progress_borders.addEventListener("mousemove", desirable_time);
+
+function desirable_time() {
+  progVal1.classList.add("progress_time_1");
+  progVal2.classList.add("progress_time_2");
+  progVal1.innerHTML = "";
+
+  const x = event.offsetX;
+  const y = this.offsetWidth;
+  const count = (x * 100) / y;
+
+  progVal1.style.left = x + "px";
+  progVal2.style.left = x + "px";
+
+  hover_time_see();
+
+  function hover_time_see() {
+    const ow = progress_borders.offsetWidth;
+    const ox = event.offsetX;
+    let videoTime = video.duration * (ox / ow);
+
+    const hover_time = Math.round(videoTime);
+    let time_hour = Math.floor(hover_time / 60 / 60);
+    let time_minute = Math.floor(hover_time / 60);
+    let time_second = hover_time % 60;
+
+    if (hover_time >= 3600) {
+      time_minute = Math.floor((hover_time / 60) % 60);
+
+      if (time_hour > 12) {
+        return;
+      }
+
+      progVal1.style.fontSize = "12px";
+      progVal1.style.paddingTop = "3px";
+      progVal1.innerHTML =
+        ("0" + time_hour).slice(-2) +
+        ":" +
+        ("0" + time_minute).slice(-2) +
+        ":" +
+        ("0" + time_second).slice(-2);
+    } else {
+      progVal1.style.paddingTop = "3px";
+      progVal1.innerHTML =
+        ("0" + time_minute).slice(-2) + ":" + ("0" + time_second).slice(-2);
+    }
+  }
+}
+
+progress_borders.addEventListener("mouseout", reset_hover_time);
+
+function reset_hover_time() {
+  progVal1.classList.remove("progress_time_1");
+  progVal2.classList.remove("progress_time_2");
+  progVal1.innerHTML = "";
 }
 
 // Volume bar tap
@@ -185,14 +225,13 @@ function volumePosition() {
 const volVal1 = document.getElementById("volVal1");
 const volVal2 = document.getElementById("volVal2");
 
-volume_borders.addEventListener("mouseover", () => {
-  volVal1.classList.add("volume_value_1");
-  volVal2.classList.add("volume_value_2");
-});
-
 volume_borders.addEventListener("mousemove", desirable_volume);
 
 function desirable_volume() {
+  volVal1.classList.add("volume_value_1");
+  volVal2.classList.add("volume_value_2");
+  volVal1.innerHTML = "";
+
   const x = event.offsetX;
   const y = this.offsetWidth;
   const count = (x * 100) / y;
